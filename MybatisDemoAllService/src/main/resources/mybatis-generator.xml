@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<properties resource="config.properties"/>
+
+	<!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->
+	<!--该路径只在加载jdbc驱动和载入生成类的父类时有效-->
+	<classPathEntry location="C:\Users\admin\.m2\repository\mysql\mysql-connector-java\5.1.36\mysql-connector-java-5.1.36.jar" />
+	<!--<classPathEntry location="C:\Users\admin\.m2\repository\com\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar" />-->
+
+	<!--targetRuntime MyBatis3：默认，包含查询类； MyBatis3Simple：无查询类-->
+	<!--defaultModelType conditional:默认,主键是单字段则一个文件，BLOB类型会单独一个文件 flat:每一张表只生成一个实体类-->
+	<context id="generatorTables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+		<!-- 给表名或字段名添加分隔符, 指定分隔符为`(MySql形式) -->
+		<property name="autoDelimitKeywords" value="true" />
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<!--<com.plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">-->
+			<!--<property name="fileName" value="mybatis-config.xml"/>-->
+			<!--<property name="targetPackage" value="/"/>-->
+			<!--<property name="targetProject" value="src/main/resources"/>-->
+		<!--</com.plugin>-->
+		
+
+		<!--<com.plugin type="org.mybatis.generator.plugins.RowBoundsPlugin">-->
+		<!--</com.plugin>-->
+
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+			<property name="addGWTInterface" value="false"/>
+			<property name="suppressJavaInterface" value="false"/>
+		</plugin>
+
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin">
+			<property name="useEqualsHashCodeFromRoot" value="true"/>
+		</plugin>
+
+
+		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行 -->
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example"/>
+			<property name="replaceString" value="Criteria"/>
+		</plugin>
+
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+			<property name="useToStringFromRoot" value="true"/>
+		</plugin>
+
+		<plugin type="com.plugin.BaseModelPlugin">
+			<property name="baseModelClass" value="base.BaseModel" />
+		</plugin>
+
+		<!-- commentGenerator 去除自动生成的注释  不要suppressDate避免重复提交SVN-->
+		<!--保留suppressAllComments，有个注解可以让MBG识别自动生成代码和手动添加代码-->
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<property name="suppressAllComments" value="true" />
+			<property name="addRemarkComments" value="true" />
+		</commentGenerator>
+
+		<!-- jdbcConnection是指定的jdbc的连接信息； -->
+		<jdbcConnection driverClass="${db.driver.class}"
+		connectionURL="${db.url}"
+						userId="${db.username}" password="${db.password}">
+		</jdbcConnection>
+
+			<!--
+			默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，
+			把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+			-->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径； -->
+		<javaModelGenerator targetPackage="com.model" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<!--<property name="rootClass" value="base.BaseModel"></property>-->
+		</javaModelGenerator>
+
+		<!-- sqlMapGenerator是mybatis 的sqlMapper XML文件的生成信息，包括生成路径等； -->
+		<sqlMapGenerator targetPackage="com.mapper"
+				targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- javaClientGenerator是应用接口的生成信息； -->
+		<javaClientGenerator type="XMLMAPPER"
+				targetPackage="com.dao" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="methodNameCalculator" value="extended" />
+
+		</javaClientGenerator>
+
+		<!--<table tableName="sys_log" domainObjectName="SysLog"></table>-->
+
+		<table tableName="sys_user" domainObjectName="SysUser">
+		</table>
+
+
+	</context>
+</generatorConfiguration>  
