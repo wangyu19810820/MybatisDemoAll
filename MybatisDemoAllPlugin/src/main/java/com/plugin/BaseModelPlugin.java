@@ -45,7 +45,6 @@ public class BaseModelPlugin extends PluginAdapter {
             Class class1 = Class.forName(baseModelClass);
             java.lang.reflect.Field[] fieldArray = class1.getDeclaredFields();
             java.lang.reflect.Field.setAccessible(fieldArray, true);
-            System.out.println(fieldArray.length);
             baseModelFieldNameList = Arrays.stream(fieldArray)
                                             .map(java.lang.reflect.Field::getName)
                                             .collect(Collectors.toList());
@@ -57,16 +56,11 @@ public class BaseModelPlugin extends PluginAdapter {
             return false;
         }
 
-        System.out.println(baseModelFieldNameList);
-        System.out.println(baseModelMethodNameList);
-
         List<Field> fields = topLevelClass.getFields();
         Iterator<Field> fieldIterator = fields.iterator();
         while (fieldIterator.hasNext()) {
             Field field = fieldIterator.next();
-            System.out.println(field.getName());
             if (baseModelFieldNameList.contains(field.getName())) {
-                System.out.println("removeField:" + field.getName());
                 fieldIterator.remove();
             }
         }
@@ -78,7 +72,6 @@ public class BaseModelPlugin extends PluginAdapter {
 
             if (baseModelMethodNameList.contains(method.getName())
                     && !objectMethodNameList.contains(method.getName())) {
-                System.out.println(method.getName());
                 methodIterator.remove();
             }
         }

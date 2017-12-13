@@ -51,14 +51,27 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		</plugin>
 
 		<plugin type="com.plugin.BaseModelPlugin">
-			<property name="baseModelClass" value="base.BaseModel" />
+			<property name="baseModelClass" value="com.base.BaseModel" />
 		</plugin>
+
+		<plugin type="com.plugin.RenameDaoPlugin">
+		</plugin>
+
+		<plugin type="com.plugin.GenericDaoPlugin">
+			<property name="genericDaoClass" value="com.base.GenericDao"></property>
+		</plugin>
+
+		<plugin type="com.plugin.ServicePlugin">
+			<property name="targetPackage" value="com.service"></property>
+			<property name="targetProject" value="src/main/java"></property>
+		</plugin>
+
 
 		<!-- commentGenerator 去除自动生成的注释  不要suppressDate避免重复提交SVN-->
 		<!--保留suppressAllComments，有个注解可以让MBG识别自动生成代码和手动添加代码-->
-		<commentGenerator>
+		<commentGenerator  type="com.plugin.CustomCommentGenerator">
 			<property name="suppressDate" value="true"/>
-			<property name="suppressAllComments" value="true" />
+			<property name="suppressAllComments" value="false" />
 			<property name="addRemarkComments" value="true" />
 		</commentGenerator>
 
@@ -80,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		<javaModelGenerator targetPackage="com.model" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
-			<!--<property name="rootClass" value="base.BaseModel"></property>-->
+			<!--<property name="rootClass" value="BaseModel"></property>-->
 		</javaModelGenerator>
 
 		<!-- sqlMapGenerator是mybatis 的sqlMapper XML文件的生成信息，包括生成路径等； -->
@@ -99,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 
 		<!--<table tableName="sys_log" domainObjectName="SysLog"></table>-->
 
-		<table tableName="sys_user" domainObjectName="SysUser">
+		<table tableName="sys_role" domainObjectName="SysRole">
 		</table>
 
 

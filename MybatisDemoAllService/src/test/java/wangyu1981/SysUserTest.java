@@ -1,8 +1,9 @@
 package wangyu1981;
 
-import com.dao.SysUserMapper;
+import com.dao.SysUserDao;
 import com.model.SysUser;
 import com.model.SysUserCriteria;
+import com.service.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ import java.util.UUID;
 public class SysUserTest {
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private SysUserDao sysUserMapper;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @Test
     public void testInsert() {
@@ -30,8 +34,10 @@ public class SysUserTest {
     @Test
     public void testSelectByExample() {
         SysUserCriteria sysUserExample = new SysUserCriteria();
-        sysUserExample.createCriteria().andStatusEqualTo((byte)1);
-        List<SysUser> userList = sysUserMapper.selectByExample(sysUserExample);
+//        sysUserExample.createCriteria().andStatusEqualTo((byte)1);
+        List<SysUser> userList = sysUserMapper.selectAll();
+
+//        List<SysUser> userList = sysUserService.selectByExample(sysUserExample);
         System.out.println(userList);
     }
 }
