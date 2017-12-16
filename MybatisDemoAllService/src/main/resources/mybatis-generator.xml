@@ -118,10 +118,8 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 			<property name="methodNameCalculator" value="extended" />
 		</javaClientGenerator>
 
-		<!--<table tableName="sys_log" domainObjectName="SysLog"></table>-->
-
-		<table tableName="sys_role" domainObjectName="SysRole">
-		</table>
+		<table tableName="sys_user" domainObjectName="SysUser"></table>
+		<table tableName="sys_role" domainObjectName="SysRole"></table>
 
 
 	</context>

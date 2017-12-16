@@ -7,6 +7,4 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SysUserDao extends GenericDao<SysUser, SysUserCriteria, String> {
-
-    List<SysUser> selectAll();
 }

@@ -7,5 +7,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SysRoleDao extends GenericDao<SysRole, SysRoleCriteria, String> {
+
     List<SysRole> demo();
 }

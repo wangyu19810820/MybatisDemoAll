@@ -5,6 +5,9 @@ import com.model.SysRole;
 import com.model.SysUser;
 import com.service.SysRoleService;
 import com.service.SysUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,10 @@ public class SysRoleTest {
 
     @Test
     public void testInsert() {
+        Subject curUser = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken("lonestarr", "vespa");
+        curUser.login(token);
+
         SysRole sysRole = new SysRole();
         sysRole.setId(UUID.randomUUID().toString());
         sysRole.setcName("aa");
