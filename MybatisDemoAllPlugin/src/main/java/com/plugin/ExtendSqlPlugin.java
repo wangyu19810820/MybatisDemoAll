@@ -1,16 +1,14 @@
 package com.plugin;
 
 import org.mybatis.generator.api.*;
-import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.Document;
-import org.mybatis.generator.api.dom.xml.TextElement;
-import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.api.dom.xml.*;
 import org.mybatis.generator.codegen.XmlConstants;
 import org.mybatis.generator.exception.ShellException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
@@ -98,5 +96,45 @@ public class ExtendSqlPlugin extends PluginAdapter {
             e.printStackTrace();
         }
         return mapperFiles;
+    }
+
+    // UpdateByExample方法去除审计字段
+    @Override
+    public boolean sqlMapUpdateByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        List<Element> list = element.getElements();
+        Iterator<Element> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Element e = iterator.next();
+            if (e instanceof TextElement) {
+                TextElement te = (TextElement) e;
+                if (te.getContent().contains("add_dttm")
+                        || te.getContent().contains("add_user")
+                        || te.getContent().contains("last_upd_dttm")
+                        || te.getContent().contains("last_upd_user")) {
+                    iterator.remove();
+                }
+            }
+        }
+        return true;
+    }
+
+    // UpdateByExample方法去除审计字段
+    @Override
+    public boolean sqlMapUpdateByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        List<Element> list = element.getElements();
+        Iterator<Element> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Element e = iterator.next();
+            if (e instanceof TextElement) {
+                TextElement te = (TextElement) e;
+                if (te.getContent().contains("add_dttm")
+                        || te.getContent().contains("add_user")
+                        || te.getContent().contains("last_upd_dttm")
+                        || te.getContent().contains("last_upd_user")) {
+                    iterator.remove();
+                }
+            }
+        }
+        return true;
     }
 }

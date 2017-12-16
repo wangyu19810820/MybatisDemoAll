@@ -35,9 +35,9 @@ public class SysUserTest {
     public void testSelectByExample() {
         SysUserCriteria sysUserExample = new SysUserCriteria();
 //        sysUserExample.createCriteria().andStatusEqualTo((byte)1);
-        List<SysUser> userList = sysUserMapper.selectAll();
+//        List<SysUser> userList = sysUserMapper.selectAll();
 
 //        List<SysUser> userList = sysUserService.selectByExample(sysUserExample);
-        System.out.println(userList);
+//        System.out.println(userList);
     }
 }

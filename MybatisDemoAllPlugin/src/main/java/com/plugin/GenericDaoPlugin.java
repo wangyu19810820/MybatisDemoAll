@@ -66,8 +66,6 @@ public class GenericDaoPlugin extends PluginAdapter {
             String daoName = new FullyQualifiedJavaType(introspectedTable.getMyBatis3JavaMapperType()).getShortName();
             File mapperServiceFile = new File(mapperDir, daoName + ".java");
 
-            System.out.println(mapperServiceFile);
-
             // 文件不存在
             if (!mapperServiceFile.exists()) {
                 return true;

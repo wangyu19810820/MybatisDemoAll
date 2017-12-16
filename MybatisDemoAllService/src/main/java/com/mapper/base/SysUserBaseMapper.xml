@@ -331,10 +331,6 @@
       sex = #{record.sex,jdbcType=TINYINT},
       real_name = #{record.realName,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=TINYINT},
-      add_dttm = #{record.addDttm,jdbcType=TIMESTAMP},
-      add_user = #{record.addUser,jdbcType=VARCHAR},
-      last_upd_dttm = #{record.lastUpdDttm,jdbcType=TIMESTAMP},
-      last_upd_user = #{record.lastUpdUser,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

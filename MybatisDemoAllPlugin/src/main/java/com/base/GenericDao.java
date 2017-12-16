@@ -1,5 +1,7 @@
 package com.base;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -10,9 +12,15 @@ import java.util.List;
  */
 public interface GenericDao<M, Q, PK> {
 
-    List<M> selectByExample(Q example);
-    int insert(M record);
-    M selectByPrimaryKey(PK pk);
-    int updateByPrimaryKeySelective(M record);
+    long countByExample(Q example);
+    int deleteByExample(Q example);
     int deleteByPrimaryKey(PK id);
+    int insert(M record);
+    int insertSelective(M record);
+    List<M> selectByExample(Q example);
+    M selectByPrimaryKey(PK pk);
+    int updateByExampleSelective(@Param("record") M record, @Param("example") Q example);
+    int updateByExample(@Param("record") M record, @Param("example") Q example);
+    int updateByPrimaryKeySelective(M record);
+
 }
