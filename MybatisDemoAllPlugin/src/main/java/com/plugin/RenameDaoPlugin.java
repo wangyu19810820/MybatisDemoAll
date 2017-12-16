@@ -5,6 +5,9 @@ import org.mybatis.generator.api.PluginAdapter;
 
 import java.util.List;
 
+/**
+ * Dao由XxxxMapper改名为XxxxDao
+ */
 public class RenameDaoPlugin extends PluginAdapter {
 
     public boolean validate(List<String> warnings) {

@@ -39,7 +39,6 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 			<property name="useEqualsHashCodeFromRoot" value="true"/>
 		</plugin>
 
-
 		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行 -->
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example"/>
@@ -59,12 +58,22 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 
 		<plugin type="com.plugin.GenericDaoPlugin">
 			<property name="genericDaoClass" value="com.base.GenericDao"></property>
+			<property name="targetPackage" value="com.dao"></property>
+			<property name="targetProject" value="src/main/java"></property>
 		</plugin>
 
 		<plugin type="com.plugin.ServicePlugin">
+			<property name="targetProject" value="src/main/java"></property>
 			<property name="targetPackage" value="com.service"></property>
+			<property name="targetImplPackage" value="com.service.impl"></property>
+		</plugin>
+
+		<plugin type="com.plugin.ExtendSqlPlugin">
+			<property name="targetBasePackage" value="com.mapper.base"></property>
+			<property name="targetPackage" value="com.mapper"></property>
 			<property name="targetProject" value="src/main/java"></property>
 		</plugin>
+
 
 
 		<!-- commentGenerator 去除自动生成的注释  不要suppressDate避免重复提交SVN-->
@@ -77,14 +86,14 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 
 		<!-- jdbcConnection是指定的jdbc的连接信息； -->
 		<jdbcConnection driverClass="${db.driver.class}"
-		connectionURL="${db.url}"
+						connectionURL="${db.url}"
 						userId="${db.username}" password="${db.password}">
 		</jdbcConnection>
 
-			<!--
+		<!--
 			默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，
 			把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
-			-->
+		-->
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
@@ -107,7 +116,6 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 				targetPackage="com.dao" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="methodNameCalculator" value="extended" />
-
 		</javaClientGenerator>
 
 		<!--<table tableName="sys_log" domainObjectName="SysLog"></table>-->

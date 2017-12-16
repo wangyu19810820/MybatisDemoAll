@@ -17,7 +17,9 @@ import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
  * 生成模型类的插件
- * 添加父类声明，不生成父类中已经存在的业务字段和方法，仍然生成Object定义的方法
+ * 添加父类声明，
+ * 不生成父类中已经存在的业务字段和方法，
+ * 仍然生成Object定义的方法
  */
 public class BaseModelPlugin extends PluginAdapter {
 

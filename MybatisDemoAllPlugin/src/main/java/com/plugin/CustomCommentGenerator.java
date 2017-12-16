@@ -14,7 +14,7 @@ import java.util.Properties;
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
- * 自定义生成注释的类来生成注释
+ * 自定义生成注释的类
  */
 public class CustomCommentGenerator extends DefaultCommentGenerator {
 
@@ -58,7 +58,7 @@ public class CustomCommentGenerator extends DefaultCommentGenerator {
     }
 
     /**
-     * 添加javadoc
+     * 添加javadoc的封装方法
      * @param javaElement java元素
      * @param markAsDoNotDelete 是否显示“do_not_delete_during_merge”
      */

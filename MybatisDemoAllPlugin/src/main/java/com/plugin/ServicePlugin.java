@@ -14,11 +14,15 @@ import java.util.List;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
+/**
+ * Service插件:添加Service接口和ServiceImpl实现类
+ */
 public class ServicePlugin extends PluginAdapter {
 
     // 扩展
     private String serviceTargetDir;
     private String serviceTargetPackage;
+    private String serviceImplTargetPackage;
     private ShellCallback shellCallback = null;
 
     public ServicePlugin() {
@@ -29,6 +33,7 @@ public class ServicePlugin extends PluginAdapter {
     public boolean validate(List<String> warnings) {
         serviceTargetDir = properties.getProperty("targetProject");
         serviceTargetPackage = properties.getProperty("targetPackage");
+        serviceImplTargetPackage = properties.getProperty("targetImplPackage");
         boolean valid = stringHasValue(serviceTargetDir);
         return valid;
     }
@@ -62,7 +67,7 @@ public class ServicePlugin extends PluginAdapter {
         serviceInterface.addImportedType(new FullyQualifiedJavaType(introspectedTable.getExampleType()));
         GeneratedJavaFile generatedServiceFile = new GeneratedJavaFile(serviceInterface, serviceTargetDir, javaFormatter);
 
-        TopLevelClass otherServiceImpl = new TopLevelClass(new FullyQualifiedJavaType(serviceTargetPackage + "." + modelType + "ServiceImpl"));
+        TopLevelClass otherServiceImpl = new TopLevelClass(new FullyQualifiedJavaType(serviceImplTargetPackage + "." + modelType + "ServiceImpl"));
         otherServiceImpl.setVisibility(JavaVisibility.PUBLIC);
         otherServiceImpl.setSuperClass("com.base.GenericServiceImpl<" + modelType + "," + exampleType + "," + pkType + ">");
         otherServiceImpl.addSuperInterface(new FullyQualifiedJavaType(interfaceName));
@@ -78,15 +83,16 @@ public class ServicePlugin extends PluginAdapter {
         try {
             File mapperDir = shellCallback.getDirectory(serviceTargetDir, serviceTargetPackage);
             File mapperServiceFile = new File(mapperDir, generatedServiceFile.getFileName());
-            File mapperServiceImplFile = new File(mapperDir, generatedServiceImplFile.getFileName());
+            File serviceImplDir = shellCallback.getDirectory(serviceTargetDir, serviceImplTargetPackage);
+            File mapperServiceImplFile = new File(serviceImplDir, generatedServiceImplFile.getFileName());
 
             // 文件不存在
-//            if (!mapperServiceFile.exists()) {
-            mapperJavaFiles.add(generatedServiceFile);
-//            }
-//            if (!mapperServiceImplFile.exists()) {
-            mapperJavaFiles.add(generatedServiceImplFile);
-//            }
+            if (!mapperServiceFile.exists()) {
+                mapperJavaFiles.add(generatedServiceFile);
+            }
+            if (!mapperServiceImplFile.exists()) {
+                mapperJavaFiles.add(generatedServiceImplFile);
+            }
         } catch (ShellException e) {
             e.printStackTrace();
         }

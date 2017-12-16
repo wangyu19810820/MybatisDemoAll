@@ -1,5 +1,6 @@
 package wangyu1981;
 
+import com.dao.SysRoleDao;
 import com.model.SysRole;
 import com.model.SysUser;
 import com.service.SysRoleService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
 import java.util.UUID;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,6 +20,9 @@ public class SysRoleTest {
 
     @Autowired
     private SysRoleService sysRoleService;
+
+    @Autowired
+    private SysRoleDao sysRoleDao;
 
     @Test
     public void testInsert() {
@@ -28,4 +33,9 @@ public class SysRoleTest {
         sysRoleService.insert(sysRole);
     }
 
+    @Test
+    public void testDemo() {
+        List<SysRole> list = sysRoleDao.demo();
+        list.forEach(System.out::println);
+    }
 }

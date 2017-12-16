@@ -2,6 +2,9 @@ package com.base;
 
 import java.util.Date;
 
+/**
+ * 模型的基类
+ */
 public class BaseModel {
 
     protected Byte status;

@@ -2,6 +2,12 @@ package com.base;
 
 import java.util.List;
 
+/**
+ * Service的接口
+ * @param <M>
+ * @param <Q>
+ * @param <PK>
+ */
 public interface GenericService<M, Q, PK> {
 
     int insert(M m);

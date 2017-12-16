@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/**
+ * Service的基类实现类
+ * @param <M>
+ * @param <Q>
+ * @param <PK>
+ */
 public class GenericServiceImpl<M, Q, PK>
         implements GenericService<M, Q, PK> {
 
