@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 引用外部配置文件 -->
+    <!--<properties resource="database.properties">-->
+        <!--<property name="driver" value="org.h2.Driver"/>-->
+        <!--<property name="url" value="jdbc:h2:file:~/sample.db"/>-->
+        <!--<property name="username" value="sa"/>-->
+        <!--<property name="password" value=""/>-->
+
+        <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis_demo"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="11111111"/>-->
+    <!--</properties>-->
+
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true" />
+
+        <!-- 全局延迟加载 -->
+        <!--<setting name="lazyLoadingEnabled" value="true" />-->
+        <!--<setting name="aggressiveLazyLoading" value="false"/>-->
+    </settings>
+
+    <plugins>
+        <plugin interceptor="plugin.MybatisPlugin">
+        </plugin>
+    </plugins>
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql" />
+        <property name="Oracle" value="oracle" />
+        <property name="H2" value="h2" />
+    </databaseIdProvider>
+
+</configuration>

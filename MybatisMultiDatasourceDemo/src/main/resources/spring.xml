@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/jdbc
+ 	http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+ 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+
+    <context:annotation-config />
+    <!-- 扫描注解 -->
+    <context:component-scan base-package="wangyu1981"></context:component-scan>
+    <tx:annotation-driven />
+
+    <!-- 加载数据源配置文件 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- 标准配置 -->
+                <value>classpath:/database.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName"><value>${db.driver}</value></property>-->
+        <!--<property name="url"><value>${db.url}</value></property>-->
+        <!--<property name="username"><value>${db.username}</value></property>-->
+        <!--<property name="password"><value>${db.password}</value></property>-->
+    <!--</bean>-->
+
+    <bean id="master" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>${db.driver}</value></property>
+        <property name="url"><value>${db.url}</value></property>
+        <property name="username"><value>${db.username}</value></property>
+        <property name="password"><value>${db.password}</value></property>
+    </bean>
+
+    <bean id="slave1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>${db1.driver}</value></property>
+        <property name="url"><value>${db1.url}</value></property>
+        <property name="username"><value>${db1.username}</value></property>
+        <property name="password"><value>${db1.password}</value></property>
+    </bean>
+
+    <bean id="dynamicDataSource" class="other.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="master" key="master"></entry>
+                <entry value-ref="slave1" key="slave1"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 如果我们的数据源是使用了 LazyConnectionDataSourceProxy 则在执行 Connection#prepareStatement
+    之前，spring 是不会向数据库连接池获取数据库链接的，以防在我们拦截sql判断数据源的同时，他拿到数据源，拿到了就不能更改了 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref bean="dynamicDataSource"></ref>
+        </property>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- configLocation：用于指定Mybatis的配置文件位置 -->
+        <property name="configLocation" value="classpath:mybatis-config-spring.xml"></property>
+        <!-- 指定映射文件 -->
+        <property name="mapperLocations" value="classpath*:mapper/**/*.xml"></property>
+    </bean>
+
+    <!-- 寻找Mapper类（Dao类） -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="wangyu1981.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+
+</beans>

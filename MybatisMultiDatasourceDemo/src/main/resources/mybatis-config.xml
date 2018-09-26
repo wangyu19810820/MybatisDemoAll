@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 引用外部配置文件 -->
+    <properties resource="database.properties">
+        <!--<property name="driver" value="org.h2.Driver"/>-->
+        <!--<property name="url" value="jdbc:h2:file:~/sample.db"/>-->
+        <!--<property name="username" value="sa"/>-->
+        <!--<property name="password" value=""/>-->
+
+        <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis_demo"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="11111111"/>-->
+
+    </properties>
+
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+
+        <!-- 全局延迟加载 -->
+        <!--<setting name="lazyLoadingEnabled" value="true" />-->
+        <!--<setting name="aggressiveLazyLoading" value="false"/>-->
+    </settings>
+
+    <typeHandlers>
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.enumerate.ScoreTypeEnum" />-->
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.enumerate.ScoreGradeEnum" />-->
+        <!--<typeHandler handler="com.type.LocalDateTimeHandler" javaType="java.time.LocalDateTime" />-->
+    </typeHandlers>
+
+    <plugins>
+        <plugin interceptor="plugin.MybatisPlugin">
+        </plugin>
+
+        <!--<plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+            <!--<property name="helperDialect" value="h2"/>-->
+            <!--<property name="offsetAsPageNum" value="true"/>-->
+            <!--<property name="rowBoundsWithCount" value="true"/>-->
+        <!--</plugin>-->
+    </plugins>
+
+    <!--<environments default="development">-->
+        <!--<environment id="development">-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="${db.driver}"/>-->
+                <!--<property name="url" value="${db.url}"/>-->
+                <!--<property name="username" value="${db.username}"/>-->
+                <!--<property name="password" value="${db.password}"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+    <!--</environments>-->
+
+    <!--<databaseIdProvider type="DB_VENDOR">-->
+        <!--<property name="MySQL" value="mysql" />-->
+        <!--<property name="Oracle" value="oracle" />-->
+        <!--<property name="H2" value="h2" />-->
+    <!--</databaseIdProvider>-->
+
+    <!--<mappers>-->
+        <!--<mapper resource="mapper/UserMapper.xml" />-->
+    <!--</mappers>-->
+
+</configuration>
