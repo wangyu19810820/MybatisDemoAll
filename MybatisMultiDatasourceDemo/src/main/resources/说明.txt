@@ -1,0 +1,25 @@
+1.利用MyBatis的插件，在ThreadLocal中记录本次sql操作类型：读还是写
+2.利用Spring中AbstractRoutingDataSource的子类，做为数据源。这个特殊的数据源，包含主从数据源。
+从ThreadLocal中获取当前线程的sql操作类型，并且返回“主”或“从”数据源
+3.在配置MySQL的主从复制中，遇到sql_mode错误，可做修改，确保所有数据库的sql_mode都一致，
+如果还有错误，是Navicat引起，网上也有其他人碰见过此情况，换用其它数据库客户端
+
+
+参考文章：
+读写分离------基于spring和mybatis插件
+https://blog.csdn.net/weixin_42604515/article/details/82010808
+
+Mybatis插件机制详解
+https://yq.aliyun.com/articles/607022
+
+mysql在windows下主从同步配置
+https://www.cnblogs.com/aini521521/p/7735918.html
+
+mysql之修改sql_mode
+https://blog.csdn.net/l631768226/article/details/77105047
+
+win10下安装两个MySQL5.6.35数据库
+https://www.jb51.net/article/113630.htm
+
+mysql 从服务器取消主从复制
+https://blog.csdn.net/chunxiaqiudong5/article/details/79619421
